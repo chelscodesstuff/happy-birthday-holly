@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Solstice Supper for [SISTER_NAME]</title>
+  <style>
+    body { font-family: sans-serif; background: #F5F4EF; color: #333; margin: 0; padding: 0; }
+    header { background: #0F3B2E; color: white; padding: 20px; text-align: center; }
+    .menu { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; padding: 20px; }
+    .card { background: white; padding: 15px; border-radius: 8px; }
+    button { background: #0F3B2E; color: white; border: none; padding: 8px 12px; cursor: pointer; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Solstice Supper for [SISTER_NAME]</h1>
+    <p>A one-night pop-up by [YOUR_NAME] — [BIRTHDAY_DATE]</p>
+  </header>
+
+  <div class="menu">
+    <div class="card">
+      <h3>Roast Chicken</h3>
+      <p>Herb-butter roast chicken with vegetables</p>
+      <button onclick="addToOrder('Roast Chicken')">Add</button>
+    </div>
+    <div class="card">
+      <h3>Chocolate Cake</h3>
+      <p>Rich dark chocolate cake with cream</p>
+      <button onclick="addToOrder('Chocolate Cake')">Add</button>
+    </div>
+    <!-- add more menu items -->
+  </div>
+
+  <div style="padding:20px;">
+    <h2>Your Order</h2>
+    <ul id="order-list"></ul>
+    <button onclick="submitOrder()">Submit Order</button>
+  </div>
+
+  <script>
+    let order = [];
+    function addToOrder(item) {
+      order.push(item);
+      document.getElementById('order-list').innerHTML = order.map(i => `<li>${i}</li>`).join('');
+    }
+
+    function submitOrder() {
+      const formUrl = 'YOUR_GOOGLE_FORM_URL_HERE';
+      const formData = new FormData();
+      formData.append('entry.1234567890', order.join(', ')); // replace entry ID with your form field ID
+      fetch(formUrl, { method: 'POST', mode: 'no-cors', body: formData });
+      alert("Thanks! Your order has been placed.");
+    }
+  </script>
+</body>
+</html>
